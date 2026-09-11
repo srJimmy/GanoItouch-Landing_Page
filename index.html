@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imperio Empresarial | GanoItouch — Tu salud, tu mejor inversión</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Playfair Display (display) + DM Sans (UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          },
+          colors: {
+            cafe: {
+              50: '#F5F0E8',
+              100: '#E8DFD0',
+              200: '#D4C4A8',
+              300: '#C8A96E',
+              400: '#B8953F',
+              500: '#9A7B2E',
+              600: '#7A6124',
+              700: '#5C491B',
+              800: '#3D3012',
+              900: '#1E1B16',
+              950: '#0F0D0A',
+            },
+            oliva: {
+              400: '#8DB87A',
+              500: '#6B8F5E',
+              600: '#527445',
+            },
+            terracota: {
+              400: '#D4845A',
+              500: '#C06B3E',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ========== Variables de Diseño ========== */
+    :root {
+      --bg: #0F0D0A;
+      --bg-card: #1E1B16;
+      --bg-card-hover: #2A2519;
+      --fg: #F5F0E8;
+      --fg-muted: #8B7E6A;
+      --accent: #C8A96E;
+      --accent-glow: rgba(200, 169, 110, 0.25);
+      --oliva: #6B8F5E;
+      --terracota: #C06B3E;
+      --border: #2E2A22;
+    }
+
+    /* ========== Reset y Base ========== */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* ========== Fondo Texturizado ========== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(200,169,110,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(107,143,94,0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(192,107,62,0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Patrón de ruido sutil */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+    }
+
+    /* ========== Header ========== */
+    .header-glass {
+      background: rgba(15, 13, 10, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(46, 42, 34, 0.6);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .header-glass.scrolled {
+      background: rgba(15, 13, 10, 0.92);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+
+    .nav-link {
+      position: relative;
+      color: var(--fg-muted);
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      transition: color 0.3s ease;
+      padding: 0.25rem 0;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+      border-radius: 1px;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--fg);
+    }
+
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* ========== Hero ========== */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Granos de café flotantes decorativos */
+    .grain {
+      position: absolute;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      opacity: 0.08;
+      pointer-events: none;
+      animation: floatGrain linear infinite;
+    }
+
+    @keyframes floatGrain {
+      0% { transform: translateY(100vh) rotate(0deg); }
+      100% { transform: translateY(-120px) rotate(360deg); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(200,169,110,0.1);
+      border: 1px solid rgba(200,169,110,0.25);
+      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title .accent-word {
+      color: var(--accent);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title .accent-word::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: var(--accent-glow);
+      border-radius: 4px;
+      z-index: -1;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(200,169,110,0.4);
+      background: #D4B87A;
+    }
+
+    .hero-cta:active {
+      transform: translateY(0);
+    }
+
+    .hero-cta-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: transparent;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      border: 2px solid var(--accent);
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    }
+
+    .hero-cta-outline:hover {
+      background: var(--accent);
+      color: var(--bg);
+      transform: translateY(-2px);
+    }
+
+    .hero-secondary-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--fg-muted);
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.3s, border-color 0.3s, background 0.3s;
+    }
+
+    .hero-secondary-cta:hover {
+      color: var(--fg);
+      border-color: var(--fg-muted);
+      background: rgba(255,255,255,0.03);
+    }
+
+    /* Línea decorativa hero */
+    .hero-line {
+      position: absolute;
+      width: 1px;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      opacity: 0.3;
+    }
+
+    /* ========== Sección Genérica ========== */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 1px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    /* ========== Beneficios ========== */
+    .benefit-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--oliva));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    /* El hover de transform/border/shadow ahora lo controlan las utilidades
+       de Tailwind aplicadas directamente en las tarjetas (ver HTML) para
+       evitar que esta regla, por orden de cascada, las sobrescriba. */
+    .benefit-card:hover::before {
+      opacity: 1;
+    }
+
+    .benefit-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ========== Tabs Catálogo ========== */
+    .tab-btn {
+      position: relative;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--fg-muted);
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: color 0.3s, background 0.3s, border-color 0.3s;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--fg);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .tab-btn.active {
+      color: var(--bg);
+      background: var(--accent);
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+
+    .tab-panel {
+      display: none !important;
+      animation: fadeTabIn 0.4s ease forwards;
+    }
+
+    .tab-panel.active {
+      display: grid !important;
+    }
+
+    .tab-panel.tab-panel-single.active {
+      display: flex !important;
+      justify-content: center;
+    }
+
+    @keyframes fadeTabIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========== Tarjetas de Producto ========== */
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(200,169,110,0.3);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+    }
+
+    .product-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-card-img {
+      transform: scale(1.06);
+    }
+
+    .product-card-body {
+      padding: 1.5rem;
+    }
+
+    .product-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .product-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      justify-content: center;
+      padding: 0.75rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+    }
+
+    .product-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    /* ========== Social ========== */
+    .social-container {
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(107,143,94,0.08) 100%);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .social-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(200,169,110,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* ========== Footer ========== */
+    footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+    }
+
+    .cert-badge {
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .cert-badge:hover {
+      border-color: rgba(200,169,110,0.3);
+      background: rgba(200,169,110,0.05);
+    }
+
+    .footer-input {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--fg);
+      font-size: 0.9rem;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .footer-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .footer-input::placeholder {
+      color: var(--fg-muted);
+    }
+
+    .footer-btn {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      white-space: nowrap;
+    }
+
+    .footer-btn:hover {
+      background: #D4B87A;
+      transform: translateY(-1px);
+    }
+
+    .footer-link {
+      color: var(--fg-muted);
+      font-size: 0.875rem;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    .footer-link:hover {
+      color: var(--fg);
+    }
+
+    .social-icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .social-icon-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(200,169,110,0.08);
+    }
+
+    /* ========== WhatsApp Flotante ========== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: whatsappPulse 2.5s ease-in-out infinite;
+      border: none;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(37,211,102,0.5);
+      animation: none;
+    }
+
+    @keyframes whatsappPulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+      50% { box-shadow: 0 4px 30px rgba(37,211,102,0.6), 0 0 0 12px rgba(37,211,102,0.1); }
+    }
+
+    .whatsapp-tooltip {
+      position: absolute;
+      right: 72px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .whatsapp-float:hover .whatsapp-tooltip {
+      opacity: 1;
+    }
+
+    /* ========== Scroll Reveal ========== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ========== Menú Móvil ========== */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(15,13,10,0.97);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .mobile-menu a {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--fg);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .mobile-menu a:hover {
+      color: var(--accent);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 200;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--fg);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ========== Scrollbar ========== */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--fg-muted);
+    }
+
+    /* ========== Reducción de movimiento ========== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+      .grain { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header id="main-header" class="header-glass fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 h-[72px] flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#inicio" class="flex items-center gap-2.5 no-underline">
+        <img src="./img/logo.png" alt="Logo Imperio Empresarial" class="h-16 w-auto object-contain">
+        <span class="font-bold text-yellow-500">Imperio Empresarial</span> <span class="font-light text-gray-300 ml-2">| GanoItouch</span>
+      </a>
+
+      <!-- Nav Desktop -->
+      <nav class="hidden md:flex items-center gap-8" aria-label="Navegaci&oacute;n principal">
+        <a href="#inicio" class="nav-link active">Inicio</a>
+        <a href="#beneficios" class="nav-link">Beneficios</a>
+        <a href="#catalogo" class="nav-link">Cat&aacute;logo</a>
+        <a href="#empresario" class="nav-link">Emprende</a>
+        <a href="#comunidad" class="nav-link">Comunidad</a>
+      </nav>
+
+      <!-- Hamburger M&oacute;vil -->
+      <button class="hamburger md:hidden" id="hamburger-btn" aria-label="Abrir men&uacute; de navegaci&oacute;n">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Men&uacute; M&oacute;vil Overlay -->
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Men&uacute; de navegaci&oacute;n m&oacute;vil">
+    <a href="#inicio" class="mobile-nav-link">Inicio</a>
+    <a href="#beneficios" class="mobile-nav-link">Beneficios</a>
+    <a href="#catalogo" class="mobile-nav-link">Cat&aacute;logo</a>
+    <a href="#empresario" class="mobile-nav-link">Emprende</a>
+    <a href="#comunidad" class="mobile-nav-link">Comunidad</a>
+  </div>
+
+
+  <!-- ==================== HERO ==================== -->
+  <section id="inicio" class="hero-section relative px-5 sm:px-8 bg-cover bg-center" style="background-image: url('./img/hero-bg.jpg');">
+    <!-- Overlay oscuro uniforme para legibilidad del texto centrado -->
+    <div class="absolute inset-0 bg-black/80 pointer-events-none"></div>
+
+    <!-- Granos decorativos -->
+    <div class="grain" style="width:18px;height:14px;background:#C8A96E;left:10%;animation-duration:18s;animation-delay:0s;"></div>
+    <div class="grain" style="width:14px;height:11px;background:#6B8F5E;left:30%;animation-duration:22s;animation-delay:3s;"></div>
+    <div class="grain" style="width:20px;height:16px;background:#C8A96E;left:55%;animation-duration:16s;animation-delay:6s;"></div>
+    <div class="grain" style="width:12px;height:10px;background:#C06B3E;left:75%;animation-duration:20s;animation-delay:2s;"></div>
+    <div class="grain" style="width:16px;height:13px;background:#C8A96E;left:90%;animation-duration:24s;animation-delay:8s;"></div>
+    <div class="grain" style="width:10px;height:8px;background:#6B8F5E;left:45%;animation-duration:19s;animation-delay:5s;"></div>
+
+    <!-- L&iacute;neas decorativas -->
+    <div class="hero-line hidden lg:block" style="left:8%;top:15%;"></div>
+    <div class="hero-line hidden lg:block" style="right:12%;bottom:20%;"></div>
+
+    <div class="relative z-10 max-w-4xl mx-auto w-full pt-24 pb-16 flex flex-col items-center justify-center text-center">
+      <div class="hero-badge mb-6 reveal">
+        <span class="w-2 h-2 rounded-full bg-oliva-500 inline-block"></span>
+        Empresario Independiente Certificado
+      </div>
+
+      <h1 class="hero-title text-5xl md:text-7xl text-cafe-50 mb-6 reveal reveal-delay-1">
+        El Imperio de tu Bienestar y Vitalidad
+      </h1>
+
+      <p class="text-cafe-200/60 text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed reveal reveal-delay-2">
+        Descubre el poder del Ganoderma Lucidum con GanoItouch. Salud, vitalidad y una oportunidad de negocio para transformar tu vida.
+      </p>
+ 
+      <div class="flex flex-wrap justify-center gap-4 reveal reveal-delay-3">
+        <a href="#ganoitouch" class="hero-cta">
+          Descubre GanoItouch
+          <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        </a>
+      </div>
+
+      <!-- Stats r&aacute;pidos -->
+      <div class="flex justify-center gap-8 mt-12 reveal reveal-delay-4">
+        <div>
+          <div class="text-2xl font-bold text-cafe-50">150+</div>
+          <div class="text-xs text-cafe-200/40 mt-0.5">Antioxidantes</div>
+        </div>
+        <div class="w-px bg-cafe-200/10"></div>
+        <div>
+          <div class="text-2xl font-bold text-cafe-50">200+</div>
+          <div class="text-xs text-cafe-200/40 mt-0.5">Fitonutrientes</div>
+        </div>
+        <div class="w-px bg-cafe-200/10"></div>
+        <div>
+          <div class="text-2xl font-bold text-cafe-50">100%</div>
+          <div class="text-xs text-cafe-200/40 mt-0.5">Natural y Org&aacute;nico</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+      <span class="text-xs tracking-widest uppercase text-cafe-200/60">Scroll</span>
+      <div class="w-5 h-8 rounded-full border border-cafe-200/30 flex justify-center pt-1.5">
+        <div class="w-1 h-2 rounded-full bg-cafe-200/50" style="animation: scrollDot 2s ease-in-out infinite;"></div>
+      </div>
+    </div>
+    <style>
+      @keyframes scrollDot {
+        0%, 100% { transform: translateY(0); opacity: 1; }
+        50% { transform: translateY(6px); opacity: 0.3; }
+      }
+    </style>
+  </section>
+
+
+  <!-- ==================== CALIDAD EN MOVIMIENTO ==================== -->
+  
+
+
+  <!-- ==================== L&Iacute;NEA GANOITOUCH ==================== -->
+  <div id="ganoitouch">
+
+  <!-- ==================== BENEFICIOS ==================== -->
+  <section id="beneficios" class="py-24 sm:py-32 px-5 sm:px-8">
+    <div class="max-w-7xl mx-auto">
+      <!-- Encabezado -->
+      <div class="max-w-2xl mb-16">
+        <div class="section-label mb-4 reveal">Beneficios</div>
+        <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl text-cafe-50 mb-5 reveal reveal-delay-1">
+          Por qu&eacute; elegir Ganoderma Lucidum
+        </h2>
+        <p class="text-cafe-200/50 text-lg leading-relaxed reveal reveal-delay-2">
+          Cada producto est&aacute; formulado con ingredientes respaldados por la ciencia, combinando el bienestar natural con beneficios reales para tu organismo.
+        </p>
+      </div>
+
+      <!-- Grid de beneficios -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Beneficio 1 -->
+        <div class="block h-full bg-gray-900/40 rounded-xl border border-gray-800 p-8 hover:scale-105 transition-transform duration-300 hover:shadow-xl hover:border-yellow-500/50 reveal reveal-delay-1">
+          <div class="benefit-icon" style="background:rgba(200,169,110,0.1);">
+            <i data-lucide="infinity" class="w-6 h-6 text-cafe-300"></i>
+          </div>
+          <h3 class="text-cafe-50 font-bold text-lg mb-2">Ganoderma Lucidum</h3>
+          <p class="text-cafe-200/45 text-sm leading-relaxed">Conocido como el hongo de la inmortalidad, con m&aacute;s de 4,000 a&ntilde;os de historia.</p>
+          <button onclick="document.getElementById('modal-ganoderma').classList.remove('hidden')" class="text-yellow-500 text-sm mt-4 font-semibold hover:text-yellow-400 transition-colors text-left">Ver todos los beneficios &rarr;</button>
+        </div>
+
+        <!-- Beneficio 2 -->
+        <a href="#catalogo" class="block h-full bg-gray-900/40 rounded-xl border border-gray-800 p-8 no-underline hover:scale-105 transition-transform duration-300 hover:shadow-xl hover:border-yellow-500/50 reveal reveal-delay-2">
+          <div class="benefit-icon" style="background:rgba(107,143,94,0.12);">
+            <i data-lucide="shield-check" class="w-6 h-6 text-oliva-400"></i>
+          </div>
+          <h3 class="text-cafe-50 font-bold text-lg mb-2">150 Antioxidantes</h3>
+          <p class="text-cafe-200/45 text-sm leading-relaxed">Nutrici&oacute;n que tu cuerpo reconoce, aportando vitaminas y minerales.</p>
+        </a>
+
+        <!-- Beneficio 3 -->
+        <a href="#catalogo" class="block h-full bg-gray-900/40 rounded-xl border border-gray-800 p-8 no-underline hover:scale-105 transition-transform duration-300 hover:shadow-xl hover:border-yellow-500/50 reveal reveal-delay-3">
+          <div class="benefit-icon" style="background:rgba(192,107,62,0.12);">
+            <i data-lucide="zap" class="w-6 h-6 text-terracota-400"></i>
+          </div>
+          <h3 class="text-cafe-50 font-bold text-lg mb-2">Energ&iacute;a Natural</h3>
+          <p class="text-cafe-200/45 text-sm leading-relaxed">Regula tu metabolismo y mant&eacute;n niveles de energ&iacute;a estables sin generar dependencia.</p>
+        </a>
+
+        <!-- Beneficio 4 -->
+        <a href="#catalogo" class="block h-full bg-gray-900/40 rounded-xl border border-gray-800 p-8 no-underline hover:scale-105 transition-transform duration-300 hover:shadow-xl hover:border-yellow-500/50 reveal reveal-delay-4">
+          <div class="benefit-icon" style="background:rgba(200,169,110,0.1);">
+            <i data-lucide="award" class="w-6 h-6 text-cafe-300"></i>
+          </div>
+          <h3 class="text-cafe-50 font-bold text-lg mb-2">Calidad Premium</h3>
+          <p class="text-cafe-200/45 text-sm leading-relaxed">Respaldado por certificaciones internacionales como ARCSA, SGS y Halal.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== CATÁLOGO ==================== -->
+  <section id="catalogo" class="py-24 sm:py-32 px-5 sm:px-8 relative">
+    <!-- Fondo decorativo sutil -->
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 40% at 50% 0%, rgba(200,169,110,0.04) 0%, transparent 100%);"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <!-- Encabezado -->
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="section-label justify-center mb-4 reveal">Cat&aacute;logo</div>
+        <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl text-cafe-50 mb-5 reveal reveal-delay-1">
+          Nuestra l&iacute;nea de productos
+        </h2>
+        <p class="text-cafe-200/50 text-lg leading-relaxed reveal reveal-delay-2">
+          Explora nuestras categor&iacute;as dise&ntilde;adas para cubrir cada aspecto de tu bienestar diario, todas formuladas con Ganoderma Lucidum.
+        </p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex flex-wrap justify-center gap-2 mb-12 reveal reveal-delay-2" role="tablist" aria-label="Categor&iacute;as de productos">
+        <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-bebidas" id="tab-bebidas" data-tab="bebidas">
+          <i data-lucide="cup-soda" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
+          Bebidas
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-suplementos" id="tab-suplementos" data-tab="suplementos">
+          <i data-lucide="pill" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
+          Suplementos
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-cuidado" id="tab-cuidado" data-tab="cuidado">
+          <i data-lucide="sparkles" class="w-4 h-4 inline-block mr-1 -mt-0.5"></i>
+          Cuidado Personal
+        </button>
+      </div>
+
+      <!-- ===== Panel: Bebidas ===== -->
+      <div class="tab-panel active grid sm:grid-cols-2 lg:grid-cols-3 gap-6" role="tabpanel" id="panel-bebidas" aria-labelledby="tab-bebidas">
+        <!-- Producto 1 -->
+        <article class="product-card">
+          <div class="overflow-hidden">
+            <img src="./img/pioir-3en1.png" alt="PIOIR Caf&eacute; 3 en 1" class="product-card-img" loading="lazy">
+          </div>
+          <div class="product-card-body">
+            <h3 class="text-cafe-50 font-bold text-lg mt-2 mb-1.5">PIOIR Caf&eacute; 3 en 1</h3>
+            <p class="text-cafe-200/45 text-sm leading-relaxed mb-4">Granos premium con extracto de Ganoderma Lucidum. $38.00</p>
+            <a href="https://wa.me/593995868260?text=Hola%2C%20me%20interesa%20el%20producto%20PIOIR%20Caf%C3%A9%203%20en%201%20%28%2438.00%29.%20%C2%BFMe%20puedes%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" rel="noopener noreferrer" class="product-btn">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              Pedir por WhatsApp
+            </a>
+          </div>
+        </article>
+
+        <!-- Producto 2 -->
+        <article class="product-card">
+          <div class="overflow-hidden">
+            <img src="./img/pioir-black.png" alt="PIOIR Black Coffee" class="product-card-img" loading="lazy">
+          </div>
+          <div class="product-card-body">
+            <h3 class="text-cafe-50 font-bold text-lg mt-2 mb-1.5">PIOIR Black Coffee</h3>
+            <p class="text-cafe-200/45 text-sm leading-relaxed mb-4">Energizante caf&eacute; negro tostado sin az&uacute;car a&ntilde;adida. $38.00</p>
+            <a href="https://wa.me/593995868260?text=Hola%2C%20me%20interesa%20el%20producto%20PIOIR%20Black%20Coffee%20%28%2438.00%29.%20%C2%BFMe%20puedes%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" rel="noopener noreferrer" class="product-btn">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              Pedir por WhatsApp
+            </a>
+          </div>
+        </article>
+
+        <!-- Producto 3 -->
+        <article class="product-card">
+          <div class="overflow-hidden">
+            <img src="./img/shoko-rico.png" alt="Shoko Rico" class="product-card-img" loading="lazy">
+          </div>
+          <div class="product-card-body">
+            <h3 class="text-cafe-50 font-bold text-lg mt-2 mb-1.5">Shoko Rico</h3>
+            <p class="text-cafe-200/45 text-sm leading-relaxed mb-4">Cacao premium europeo con Ganoderma. Cero colesterol. $38.00</p>
+            <a href="https://wa.me/593995868260?text=Hola%2C%20me%20interesa%20el%20producto%20Shoko%20Rico%20%28%2438.00%29.%20%C2%BFMe%20puedes%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" rel="noopener noreferrer" class="product-btn">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              Pedir por WhatsApp
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- ===== Panel: Suplementos ===== -->
+      <div class="tab-panel tab-panel-single grid sm:grid-cols-2 lg:grid-cols-3 gap-6" role="tabpanel" id="panel-suplementos" aria-labelledby="tab-suplementos">
+        <article class="product-card max-w-sm w-full">
+          <div class="overflow-hidden">
+            <img src="./img/gano-plus.png" alt="Gano Plus (90 C&aacute;psulas)" class="product-card-img" loading="lazy">
+          </div>
+          <div class="product-card-body">
+            <h3 class="text-cafe-50 font-bold text-lg mt-2 mb-1.5">Gano Plus (90 C&aacute;psulas)</h3>
+            <p class="text-cafe-200/45 text-sm leading-relaxed mb-4">Doble extracci&oacute;n para m&aacute;xima concentraci&oacute;n. $259.00</p>
+            <a href="https://wa.me/593995868260?text=Hola%2C%20me%20interesa%20el%20producto%20Gano%20Plus%20%2890%20C%C3%A1psulas%29%20%28%24259.00%29.%20%C2%BFMe%20puedes%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" rel="noopener noreferrer" class="product-btn">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              Pedir por WhatsApp
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- ===== Panel: Cuidado Personal ===== -->
+      <div class="tab-panel tab-panel-single grid sm:grid-cols-2 lg:grid-cols-3 gap-6" role="tabpanel" id="panel-cuidado" aria-labelledby="tab-cuidado">
+        <article class="product-card max-w-sm w-full">
+          <div class="overflow-hidden">
+            <img src="./img/shampoo.png" alt="Shampoo Piel&amp;Brillo" class="product-card-img" loading="lazy">
+          </div>
+          <div class="product-card-body">
+            <h3 class="text-cafe-50 font-bold text-lg mt-2 mb-1.5">Shampoo Piel&amp;Brillo</h3>
+            <p class="text-cafe-200/45 text-sm leading-relaxed mb-4">F&oacute;rmula natural que nutre y previene la ca&iacute;da del cabello. $28.00</p>
+            <a href="https://wa.me/593995868260?text=Hola%2C%20me%20interesa%20el%20producto%20Shampoo%20Piel%26Brillo%20%28%2428.00%29.%20%C2%BFMe%20puedes%20dar%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" rel="noopener noreferrer" class="product-btn">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              Pedir por WhatsApp
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Bot&oacute;n de descarga del cat&aacute;logo GanoItouch -->
+      <div class="flex justify-center mt-14 reveal">
+        <a href="./catalogo.pdf" download class="hero-cta">
+          <i data-lucide="download" class="w-5 h-5"></i>
+          Descargar Cat&aacute;logo Completo
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== EQUIPO DE ASESORES ==================== -->
+  <section id="empresario" class="py-24 sm:py-32 px-5 sm:px-8 relative">
+    <div class="max-w-7xl mx-auto">
+      <!-- Encabezado -->
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="section-label justify-center mb-4 reveal">Nuestro Equipo</div>
+        <h2 class="section-title text-3xl sm:text-4xl lg:text-5xl text-cafe-50 mb-5 reveal reveal-delay-1">
+          Conoce a tu Equipo de Asesores
+        </h2>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-8">
+        <!-- Tarjeta: Henrry -->
+        <div class="reveal rounded-2xl bg-gray-900/40 border border-yellow-600/30 p-8 sm:p-10 flex flex-col items-center text-center">
+          <i data-lucide="user-circle" class="w-14 h-14 text-yellow-600 mb-5"></i>
+          <h3 class="section-title text-xl sm:text-2xl text-cafe-50 mb-1">Dr. Henrry Marcelino Pinargote Pinargote, PhD.</h3>
+          <p class="text-cafe-300 font-semibold text-sm uppercase tracking-wider mb-4">Empresario Independiente Certificado</p>
+          <p class="text-cafe-200/50 text-base leading-relaxed mb-6">
+            Mi objetivo es guiarte hacia un estilo de vida m&aacute;s saludable a trav&eacute;s del Ganoderma Lucidum. Te brindo asesor&iacute;a personalizada y, si buscas libertad financiera, te invito a formar parte de mi equipo.
+          </p>
+
+          <!-- Redes de Henrry -->
+          <div class="flex gap-3">
+            <a href="https://www.facebook.com/share/1DKu1PeJMJ/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Facebook de Henrry Pinargote">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@henrrymarcelinopinargote?is_from_webapp=1&amp;sender_device=pc" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="TikTok de Henrry Pinargote">
+              <i data-lucide="music-2" class="w-5 h-5"></i>
+            </a>
+            <a href="https://www.instagram.com/henrry.pinargote/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Instagram de Henrry Pinargote">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://t.me/Henrry73" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Telegram de Henrry Pinargote">
+              <i data-lucide="send" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tarjeta: &Aacute;ngela -->
+        <div class="reveal reveal-delay-1 rounded-2xl bg-gray-900/40 border border-yellow-600/30 p-8 sm:p-10 flex flex-col items-center text-center">
+          <i data-lucide="heart" class="w-14 h-14 text-yellow-600 mb-5"></i>
+          <h3 class="section-title text-xl sm:text-2xl text-cafe-50 mb-1">Lic. Angela Noemi Pinargote Mayorga, Mg.</h3>
+          <p class="text-cafe-300 font-semibold text-sm uppercase tracking-wider mb-4">Asesora de Bienestar</p>
+          <p class="text-cafe-200/50 text-base leading-relaxed mb-6">
+            Te acompa&ntilde;o en tu camino hacia el bienestar integral, con un plan de nutrici&oacute;n personalizado a base de Ganoderma Lucidum adaptado a tus metas de salud.
+          </p>
+
+          <!-- Redes de &Aacute;ngela -->
+          <div class="flex gap-3">
+            <a href="https://www.facebook.com/share/1LUJwCvb8Q/" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Facebook de &Aacute;ngela Noemi">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@angela.noemi4?_r=1&amp;_t=ZS-98Ec6qCa61V" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="TikTok de &Aacute;ngela Noemi">
+              <i data-lucide="music-2" class="w-5 h-5"></i>
+            </a>
+            <a href="https://www.instagram.com/ang6.noe?utm_source=qr&amp;igsh=aXc1NXp6dHF2ZWhv" target="_blank" rel="noopener noreferrer" class="social-icon-btn" aria-label="Instagram de &Aacute;ngela Noemi">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones finales -->
+      <div class="flex flex-wrap justify-center gap-4 mt-12 reveal reveal-delay-2">
+        <a href="https://wa.me/593995868260?text=Hola%2C%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20personalizada%20sobre%20bienestar%20y%20los%20productos%20de%20Imperio%20Empresarial%20%7C%20GanoItouch." target="_blank" rel="noopener noreferrer" class="hero-cta">
+          Asesor&iacute;a Personalizada
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+        </a>
+        <a href="https://wa.me/593995868260?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20c%C3%B3mo%20unirme%20como%20Empresario%20Independiente%20de%20Imperio%20Empresarial%20%7C%20GanoItouch." target="_blank" rel="noopener noreferrer" class="hero-secondary-cta">
+          <i data-lucide="briefcase" class="w-5 h-5"></i>
+          Quiero Emprender
+        </a>
+      </div>
+    </div>
+  </section>
+
+  </div> <!-- /#ganoitouch -->
+
+
+  <!-- ==================== COMUNIDAD / SOCIAL ==================== -->
+  <section id="comunidad" class="py-24 sm:py-32 px-5 sm:px-8">
+    <div class="max-w-5xl mx-auto">
+      <div class="social-container p-8 sm:p-12 lg:p-16 text-center relative z-10 reveal">
+        <div class="section-label justify-center mb-4">Nuestra Marca</div>
+        <h2 class="section-title text-3xl sm:text-4xl text-cafe-50 mb-4">
+          Respaldo Oficial
+        </h2>
+        <p class="text-cafe-200/50 text-lg max-w-lg mx-auto mb-10 leading-relaxed">
+          Comercializamos productos 100% originales, respaldados por la calidad y garant&iacute;a de GanoItouch.
+        </p>
+
+        <!-- Marca GanoItouch -->
+        <div class="max-w-md mx-auto rounded-2xl bg-cafe-950/40 border border-cafe-200/10 p-8 text-center">
+          <img src="./img/logoganoitouch.png" alt="GanoItouch" class="h-32 w-auto mx-auto object-contain">
+          <p class="text-cafe-200/50 text-sm leading-relaxed mt-5 mb-6">
+            Nutrici&oacute;n, bienestar y libertad financiera con el poder del Ganoderma Lucidum.
+          </p>
+          <a href="#empresario" class="inline-flex items-center gap-1.5 text-cafe-300 font-semibold text-sm hover:text-cafe-50 transition-colors">
+            Saber m&aacute;s de GanoItouch
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+
+        <!-- Enlaces directos a redes -->
+        <div class="flex justify-center gap-3 mt-10">
+          <a href="#" class="social-icon-btn" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="social-icon-btn" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-icon-btn" aria-label="TikTok">
+            <i data-lucide="music-2" class="w-5 h-5"></i>
+          </a>
+          <a href="#" class="social-icon-btn" aria-label="YouTube">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="pt-16 pb-8 px-5 sm:px-8">
+    <div class="max-w-7xl mx-auto">
+      <!-- Certificaciones -->
+      <div class="flex flex-wrap justify-center gap-4 mb-14 reveal">
+        <div class="cert-badge" title="Certificaci&oacute;n Org&aacute;nica">
+          <i data-lucide="award" class="w-8 h-8 text-cafe-300/40"></i>
+        </div>
+        <div class="cert-badge" title="Buenas Pr&aacute;cticas de Manufactura">
+          <i data-lucide="shield" class="w-8 h-8 text-cafe-300/40"></i>
+        </div>
+        <div class="cert-badge" title="Comercio Justo">
+          <i data-lucide="heart-handshake" class="w-8 h-8 text-cafe-300/40"></i>
+        </div>
+        <div class="cert-badge" title="Sin Crueldad Animal">
+          <i data-lucide="rabbit" class="w-8 h-8 text-cafe-300/40"></i>
+        </div>
+        <div class="cert-badge" title="Vegano Certificado">
+          <i data-lucide="leaf" class="w-8 h-8 text-cafe-300/40"></i>
+        </div>
+      </div>
+
+      <!-- Grid del footer -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-14">
+        <!-- Col 1: Marca -->
+        <div class="reveal">
+          <a href="#inicio" class="flex items-center gap-2.5 mb-4 no-underline">
+            <div class="w-8 h-8 rounded-lg bg-cafe-300 flex items-center justify-center overflow-hidden">
+              <img src="./img/logo.png" alt="Logo Imperio Empresarial | GanoItouch" class="w-full h-full object-cover">
+            </div>
+            <span class="font-display font-bold text-base text-cafe-50">Imperio Empresarial | GanoItouch</span>
+          </a>
+          <p class="text-cafe-200/40 text-sm leading-relaxed mb-5">
+            Empresario Independiente de bienestar y nutrici&oacute;n con Ganoderma Lucidum, para tu salud y tu propio negocio.
+          </p>
+          <div class="flex gap-2">
+            <a href="#" class="social-icon-btn" style="width:34px;height:34px;" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" class="social-icon-btn" style="width:34px;height:34px;" aria-label="Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" class="social-icon-btn" style="width:34px;height:34px;" aria-label="TikTok">
+              <i data-lucide="music-2" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Enlaces -->
+        <div class="reveal reveal-delay-1">
+          <h4 class="text-cafe-50 font-bold text-sm mb-4 uppercase tracking-wider">Navegaci&oacute;n</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#inicio" class="footer-link">Inicio</a></li>
+            <li><a href="#beneficios" class="footer-link">Beneficios</a></li>
+            <li><a href="#catalogo" class="footer-link">Cat&aacute;logo</a></li>
+            <li><a href="#empresario" class="footer-link">Emprende</a></li>
+            <li><a href="#comunidad" class="footer-link">Comunidad</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Legal -->
+        <div class="reveal reveal-delay-2">
+          <h4 class="text-cafe-50 font-bold text-sm mb-4 uppercase tracking-wider">Legal</h4>
+          <ul class="space-y-2.5">
+            <li><a href="#" class="footer-link">T&eacute;rminos y condiciones</a></li>
+            <li><a href="#" class="footer-link">Pol&iacute;tica de privacidad</a></li>
+            <li><a href="#" class="footer-link">Aviso legal</a></li>
+            <li><a href="#" class="footer-link">Pol&iacute;tica de cookies</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contacto -->
+        <div class="reveal reveal-delay-3">
+          <h4 class="text-cafe-50 font-bold text-sm mb-4 uppercase tracking-wider">Cont&aacute;ctanos</h4>
+          <form id="contact-form" class="space-y-3" novalidate>
+            <input type="text" class="footer-input" placeholder="Tu nombre" required aria-label="Tu nombre">
+            <input type="email" class="footer-input" placeholder="Tu email" required aria-label="Tu email">
+            <textarea class="footer-input" rows="2" placeholder="Tu mensaje" required aria-label="Tu mensaje" style="resize:vertical;min-height:60px;"></textarea>
+            <button type="submit" class="footer-btn w-full">
+              Enviar mensaje
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Barra inferior -->
+      <div class="border-t border-cafe-200/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <p class="text-cafe-200/30 text-xs">&copy; 2026 Imperio Empresarial | GanoItouch. Todos los derechos reservados.</p>
+        <p class="text-cafe-200/20 text-xs">Empresario Independiente &mdash; No afiliado a ninguna marca multinacional</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ==================== BOTÓN WHATSAPP FLOTANTE ==================== -->
+  <a href="https://wa.me/593995868260?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20los%20productos%20de%20Imperio%20Empresarial%20%7C%20GanoItouch" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Contactar por WhatsApp">
+    <span class="whatsapp-tooltip">Escr&iacute;benos por WhatsApp</span>
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+
+  <!-- ==================== TOAST CONTAINER ==================== -->
+  <div id="toast-container" class="fixed top-24 right-5 z-[9999] flex flex-col gap-3 pointer-events-none"></div>
+
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // ============================================
+    // Inicializar íconos de Lucide
+    // ============================================
+    lucide.createIcons();
+
+    // ============================================
+    // Header scroll effect
+    // ============================================
+    const header = document.getElementById('main-header');
+    let lastScrollY = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      lastScrollY = currentScrollY;
+    }, { passive: true });
+
+    // ============================================
+    // Menú móvil (hamburger)
+    // ============================================
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNavLinks = mobileMenu.querySelectorAll('.mobile-nav-link');
+
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    });
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.classList.remove('active');
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ============================================
+    // Navegación activa según sección visible
+    // ============================================
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observerNav = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(section => observerNav.observe(section));
+
+    // ============================================
+    // Sistema de Tabs del Catálogo
+    // ============================================
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.dataset.tab;
+
+        // Desactivar todos los tabs y paneles
+        tabButtons.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        tabPanels.forEach(p => p.classList.remove('active'));
+
+        // Activar el tab clickeado y su panel
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        const targetPanel = document.getElementById('panel-' + targetTab);
+        if (targetPanel) {
+          targetPanel.classList.add('active');
+        }
+
+        // Re-inicializar iconos de Lucide en el panel activo (por si acaso)
+        lucide.createIcons();
+      });
+
+      // Soporte de teclado para tabs
+      btn.addEventListener('keydown', (e) => {
+        const tabList = [...tabButtons];
+        const currentIndex = tabList.indexOf(btn);
+        let newIndex = currentIndex;
+
+        if (e.key === 'ArrowRight') {
+          newIndex = (currentIndex + 1) % tabList.length;
+        } else if (e.key === 'ArrowLeft') {
+          newIndex = (currentIndex - 1 + tabList.length) % tabList.length;
+        } else {
+          return;
+        }
+
+        e.preventDefault();
+        tabList[newIndex].focus();
+        tabList[newIndex].click();
+      });
+    });
+
+    // ============================================
+    // Scroll Reveal con IntersectionObserver
+    // ============================================
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const observerReveal = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observerReveal.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealElements.forEach(el => observerReveal.observe(el));
+
+    // ============================================
+    // Formulario de contacto del Footer
+    // ============================================
+    const contactForm = document.getElementById('contact-form');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const inputs = contactForm.querySelectorAll('input, textarea');
+      let valid = true;
+
+      inputs.forEach(input => {
+        if (!input.value.trim()) {
+          valid = false;
+          input.style.borderColor = 'var(--terracota)';
+          setTimeout(() => { input.style.borderColor = ''; }, 2000);
+        }
+      });
+
+      // Validación básica de email
+      const emailInput = contactForm.querySelector('input[type="email"]');
+      if (emailInput.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+        valid = false;
+        emailInput.style.borderColor = 'var(--terracota)';
+        setTimeout(() => { emailInput.style.borderColor = ''; }, 2000);
+        showToast('Por favor, ingresa un email válido', 'error');
+        return;
+      }
+
+      if (valid) {
+        showToast('Mensaje enviado correctamente. Te contactaremos pronto.');
+        contactForm.reset();
+      } else {
+        showToast('Por favor, completa todos los campos', 'error');
+      }
+    });
+
+    // ============================================
+    // Sistema de Toast (notificaciones)
+    // ============================================
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+
+      const toast = document.createElement('div');
+      toast.style.cssText = `
+        pointer-events: auto;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.875rem 1.25rem;
+        border-radius: 12px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        font-family: 'DM Sans', sans-serif;
+        max-width: 360px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        transform: translateX(120%);
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+        border: 1px solid ${type === 'error' ? 'rgba(192,107,62,0.3)' : 'rgba(200,169,110,0.3)'};
+        background: ${type === 'error' ? '#2A1E16' : '#1E1B16'};
+        color: ${type === 'error' ? '#D4845A' : '#F5F0E8'};
+      `;
+
+      // Ícono del toast
+      const iconSvg = type === 'error'
+        ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+        : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>';
+
+      toast.innerHTML = iconSvg + '<span>' + message + '</span>';
+      container.appendChild(toast);
+
+      // Animar entrada
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          toast.style.transform = 'translateX(0)';
+        });
+      });
+
+      // Auto-remover después de 4 segundos
+      setTimeout(() => {
+        toast.style.transform = 'translateX(120%)';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 400);
+      }, 4000);
+    }
+
+    // ============================================
+    // Parallax sutil en el Hero (solo desktop)
+    // ============================================
+    const heroSection = document.querySelector('.hero-section');
+    const heroGrains = heroSection.querySelectorAll('.grain');
+
+    if (window.matchMedia('(min-width: 1024px)').matches) {
+      window.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 2;
+        const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+        heroGrains.forEach((grain, i) => {
+          const speed = (i + 1) * 4;
+          grain.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+        });
+      }, { passive: true });
+    }
+  </script>
+
+  <!-- ==================== MODAL: INFOGRAF&Iacute;A GANODERMA ==================== -->
+  <div id="modal-ganoderma" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 transition-opacity backdrop-blur-sm" onclick="this.classList.add('hidden')">
+    <button type="button" onclick="document.getElementById('modal-ganoderma').classList.add('hidden')" class="absolute top-5 right-5 w-10 h-10 flex items-center justify-center rounded-full bg-gray-900/80 text-cafe-50 hover:bg-yellow-500 hover:text-cafe-950 transition-colors" aria-label="Cerrar">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <img src="./img/ganoderma_beneficio.jpeg" class="max-h-[90vh] max-w-full md:max-w-3xl object-contain rounded-xl shadow-2xl" onclick="event.stopPropagation()" alt="Infograf&iacute;a Ganoderma Lucidum">
+  </div>
+
+</body>
+</html>
